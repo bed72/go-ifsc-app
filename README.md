@@ -1,4 +1,4 @@
-# go_ifsc
+# Go IFSC
 
 A new Flutter project.
 
