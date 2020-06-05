@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_ifsc/app/modules/login/widgets/input_widget.dart';
+import 'package:go_ifsc/app/modules/login/widgets/input_text_widget.dart';
+import 'package:go_ifsc/app/modules/login/widgets/input_password_widget.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 5),
-            child: InputsWidget(
+            child: InputsTextWidget(
               'E-mail',
               Icon(
                 Icons.email,
@@ -22,21 +23,19 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextInputType.emailAddress,
               128,
-              false,
               Colors.white60,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 5),
-            child: InputsWidget(
+            child: InputsPasswordWidget(
               'Password',
               Icon(
-                Icons.visibility_off,
+                Icons.lock,
                 color: Colors.white38,
               ),
               TextInputType.text,
               256,
-              true,
               Colors.white60,
             ),
           ),
