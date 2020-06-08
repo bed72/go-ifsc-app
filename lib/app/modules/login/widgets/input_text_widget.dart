@@ -54,7 +54,7 @@ class InputTextField extends StatelessWidget {
       ),
       controller: getText,
       onChanged: (_) {
-        onChanged.setEmail(getText.text);
+        onChanged.setPassword(getText.text);
       },
     );
   }
