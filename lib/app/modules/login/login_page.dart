@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:go_ifsc/app/modules/login/login_bloc.dart';
 import 'package:go_ifsc/app/modules/login/widgets/input_text_widget.dart';
 import 'package:go_ifsc/app/modules/login/widgets/input_password_widget.dart';
 
@@ -8,6 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final loginBloc = Modular.get<LoginBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,30 +19,40 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top: 50, left: 20, right: 20, bottom: 5),
-            child: InputsTextWidget(
-              'E-mail',
-              Icon(
+            child: InputTextField(
+              hintText: 'E-mail',
+              typeIcon: Icon(
                 Icons.email,
                 color: Colors.white38,
               ),
-              TextInputType.emailAddress,
-              128,
-              Colors.white60,
+              typeInput: TextInputType.emailAddress,
+              maxLength: 128,
+              color: Colors.white60,
+              onChanged: loginBloc,
             ),
           ),
           Padding(
             padding: EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 5),
-            child: InputsPasswordWidget(
-              'Password',
-              Icon(
+            child: InputPasswordText(
+              hintText: 'Password',
+              typeIcon: Icon(
                 Icons.lock,
                 color: Colors.white38,
               ),
-              TextInputType.text,
-              256,
-              Colors.white60,
+              typeInput: TextInputType.text,
+              maxLength: 256,
+              color: Colors.white60,
+              onChanged: loginBloc,
             ),
           ),
+          Container(
+            child: StreamBuilder(
+              stream: loginBloc.getPassword,
+              builder: (context, AsyncSnapshot<String> snapshot) {
+                return Text('${snapshot.data}');
+              },
+            ),
+          )
         ],
       ),
     );
