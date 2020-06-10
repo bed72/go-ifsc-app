@@ -50,6 +50,7 @@ class InputTextField extends StatelessWidget {
       maxLines: 1,
       style: TextStyle(
         color: color,
+        fontSize: 16,
         fontWeight: FontWeight.w500,
       ),
       controller: getText,

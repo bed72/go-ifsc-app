@@ -1,8 +1,5 @@
-import 'package:flare_flutter/flare_cache_builder.dart';
-import 'package:flare_flutter/provider/asset_flare.dart';
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class SplashPage extends StatefulWidget {
@@ -11,14 +8,13 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  String _animationName = "idle";
-  final asset =
-      AssetFlare(bundle: rootBundle, name: "assets/animate/Filip.flr");
+  String _assets = "assets/animate/ifsc.flr";
+  String _animationName = "ping";
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 10)).then(
+    Future.delayed(Duration(seconds: 5)).then(
       (value) => Modular.to.pushReplacementNamed('/login'),
     );
   }
@@ -31,23 +27,16 @@ class _SplashPageState extends State<SplashPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Expanded(
-              child: FlareCacheBuilder(
-                [asset],
-                builder: (BuildContext context, bool isNone) {
-                  return !isNone
-                      ? Container(
-                          child: Text('Go IFSC'),
-                        )
-                      : FlareActor.asset(
-                          asset,
-                          alignment: Alignment.center,
-                          fit: BoxFit.contain,
-                          animation: _animationName,
-                        );
-                },
+            Container(
+              width: 200,
+              height: 300,
+              child: FlareActor(
+                _assets,
+                alignment: Alignment.center,
+                fit: BoxFit.contain,
+                animation: _animationName,
               ),
-            ),
+            )
           ],
         ),
       ),
