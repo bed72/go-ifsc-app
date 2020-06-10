@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 /// * __typeInput__: O tipo do determinado Input. Ex.: text, emailAddress
 /// * __maxLength__: Quantidade maxíma de caracteres do Input
 /// * __color__: Cor do texto interno do Input
-/// * __onChanged__ bloc responsavel pelo controle do mesmo
+/// * __bloc__ bloc responsavel pelo controle do mesmo
 ///
 class InputTextField extends StatelessWidget {
   final String hintText;
@@ -17,7 +17,7 @@ class InputTextField extends StatelessWidget {
   final TextInputType typeInput;
   final int maxLength;
   final Color color;
-  final onChanged;
+  final bloc;
   final String Function() errorText;
 
   InputTextField({
@@ -26,7 +26,7 @@ class InputTextField extends StatelessWidget {
     this.typeInput,
     this.maxLength,
     this.color,
-    this.onChanged,
+    this.bloc,
     this.errorText,
   });
 
@@ -54,7 +54,7 @@ class InputTextField extends StatelessWidget {
       ),
       controller: getText,
       onChanged: (_) {
-        onChanged.setPassword(getText.text);
+        bloc(getText.text);
       },
     );
   }
