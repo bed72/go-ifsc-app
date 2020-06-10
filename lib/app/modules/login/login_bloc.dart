@@ -1,13 +1,12 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-
 import 'repository/login_repository.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginBloc extends Disposable {
   final LoginRepositoty _repository;
   String token;
-  String email;
-  String password;
+  String email = "";
+  String password = "";
 
   BehaviorSubject<String> _subjectEmail;
   BehaviorSubject<String> _subjectPassword;
@@ -32,6 +31,7 @@ class LoginBloc extends Disposable {
   }
 
   fetchLogin() async {
+    print('\n\nAntes ${this.email} \n ${this.password} \n\n');
     token = await _repository.doLogin(this.email, this.password);
     print('\nOlá: $token \n');
   }
