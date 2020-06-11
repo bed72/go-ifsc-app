@@ -4,14 +4,37 @@ import 'package:go_ifsc/app/modules/login/login_bloc.dart';
 import 'package:go_ifsc/app/modules/login/widgets/app_bar_widget.dart';
 import 'package:go_ifsc/app/modules/login/widgets/input_text_widget.dart';
 import 'package:go_ifsc/app/modules/login/widgets/input_password_widget.dart';
+import 'package:go_ifsc/app/modules/login/widgets/sigin_up_button.dart';
+import 'package:go_ifsc/app/modules/login/widgets/stagger_animation.dart';
+
+import 'package:flutter/scheduler.dart' show timeDilation;
 
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
   final loginBloc = Modular.get<LoginBloc>();
+
+  AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      // Tempo para diminuir button e checar login 5 sec
+      duration: Duration(seconds: 5),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   void doLogin() {
     loginBloc.fetchLogin();
@@ -19,96 +42,70 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    /// double screenWidth = MediaQuery.of(context).size.width;
-    double statusWidth = MediaQuery.of(context).padding.top;
+    // Simula tempo do app timeDilation 4 x mais lento
+    timeDilation = 1;
     return Scaffold(
-      body: Stack(
-        overflow: Overflow.visible,
-        children: <Widget>[
-          Positioned(
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: statusWidth,
+      body: Container(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            // Stack vai ser para animar
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: <Widget>[
+                Form(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 27,
+                      ),
+                      // AppBar login
+                      AppBarLogin(),
+
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 0, left: 20, right: 20, bottom: 5),
+                        child: InputTextField(
+                          hintText: 'E-mail',
+                          typeIcon: Icon(
+                            Icons.email,
+                            color: Colors.white38,
+                          ),
+                          typeInput: TextInputType.text,
+                          maxLength: 128,
+                          color: Colors.white60,
+                          bloc: loginBloc.setEmail,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 35, left: 20, right: 20, bottom: 5),
+                        child: InputPasswordText(
+                          hintText: 'Password',
+                          typeIcon: Icon(
+                            Icons.lock,
+                            color: Colors.white38,
+                          ),
+                          typeInput: TextInputType.text,
+                          maxLength: 256,
+                          color: Colors.white60,
+                          bloc: loginBloc.setPassword,
+                        ),
+                      ),
+                      // Button create user
+                      SignUpButton(),
+                    ],
                   ),
-                  // AppBar login
-                  AppBarLogin(),
-                  Expanded(
-                    child: ListView(
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 0, left: 20, right: 20, bottom: 5),
-                          child: InputTextField(
-                            hintText: 'E-mail',
-                            typeIcon: Icon(
-                              Icons.email,
-                              color: Colors.white38,
-                            ),
-                            typeInput: TextInputType.text,
-                            maxLength: 128,
-                            color: Colors.white60,
-                            bloc: loginBloc.setEmail,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 35, left: 20, right: 20, bottom: 5),
-                          child: InputPasswordText(
-                            hintText: 'Password',
-                            typeIcon: Icon(
-                              Icons.lock,
-                              color: Colors.white38,
-                            ),
-                            typeInput: TextInputType.text,
-                            maxLength: 256,
-                            color: Colors.white60,
-                            bloc: loginBloc.setPassword,
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 25, left: 20, right: 20, bottom: 10),
-                          child: SizedBox(
-                            height: 52,
-                            child: RaisedButton(
-                              onPressed: () {
-                                doLogin();
-                              },
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                                side: BorderSide(color: Colors.green),
-                              ),
-                              padding: EdgeInsets.all(5.0),
-                              textColor: Colors.white,
-                              child: Text(
-                                'Signin',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 5, left: 30, right: 20, bottom: 10),
-                          child: Text(
-                            'Signup',
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                // button animado Login
+                StaggerAnimation(
+                  controller: _animationController.view,
+                  bloc: loginBloc,
+                ),
+              ],
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

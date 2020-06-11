@@ -34,7 +34,7 @@ class InputTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     var getText = TextEditingController();
 
-    return TextField(
+    return TextFormField(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         focusedBorder: OutlineInputBorder(
