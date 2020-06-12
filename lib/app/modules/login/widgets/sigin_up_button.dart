@@ -24,21 +24,3 @@ class SignUpButton extends StatelessWidget {
     );
   }
 }
-
-// FlatButton(
-//                             onPressed: () {
-//                               doLogin();
-//                             },
-//                             shape: RoundedRectangleBorder(
-//                               borderRadius: BorderRadius.circular(18.0),
-//                               side: BorderSide(color: Colors.green),
-//                             ),
-//                             padding: EdgeInsets.all(5.0),
-//                             textColor: Colors.white,
-//                             child: Text(
-//                               'Signin',
-//                               style: TextStyle(
-//                                 fontSize: 18,
-//                               ),
-//                             ),
-//                           ),

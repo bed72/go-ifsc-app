@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:go_ifsc/app/modules/login/login_bloc.dart';
-import 'package:go_ifsc/app/modules/login/widgets/app_bar_widget.dart';
-import 'package:go_ifsc/app/modules/login/widgets/input_text_widget.dart';
-import 'package:go_ifsc/app/modules/login/widgets/input_password_widget.dart';
+import 'package:go_ifsc/app/modules/core/widgets/app_bar_widget.dart';
+import 'package:go_ifsc/app/modules/core/widgets/input_text_widget.dart';
 import 'package:go_ifsc/app/modules/login/widgets/sigin_up_button.dart';
 import 'package:go_ifsc/app/modules/login/widgets/stagger_animation.dart';
+import 'package:go_ifsc/app/modules/core/widgets/input_password_widget.dart';
 
 import 'package:flutter/scheduler.dart' show timeDilation;
 
@@ -26,7 +26,15 @@ class _LoginPageState extends State<LoginPage>
     _animationController = AnimationController(
       vsync: this,
       // Tempo para diminuir button e checar login 5 sec
-      duration: Duration(seconds: 5),
+      duration: Duration(seconds: 2),
+    );
+
+    _animationController.addStatusListener(
+      (status) {
+        if (status == AnimationStatus.completed) {
+          Modular.to.pushReplacementNamed('/login/home');
+        }
+      },
     );
   }
 
@@ -60,7 +68,7 @@ class _LoginPageState extends State<LoginPage>
                         height: 27,
                       ),
                       // AppBar login
-                      AppBarLogin(),
+                      AppTitleBar(title: 'Login'),
 
                       Padding(
                         padding: EdgeInsets.only(
