@@ -58,6 +58,10 @@ class InputPasswordText extends StatelessWidget {
       onChanged: (_) {
         bloc(getText.text);
       },
+      validator: (value) {
+        if (value.isEmpty || value.length < 4) return 'Campo invalido';
+        return null;
+      },
     );
   }
 }
