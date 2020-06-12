@@ -30,6 +30,10 @@ class InputTextField extends StatelessWidget {
     this.errorText,
   });
 
+  bool onValidateEmail(String value) => RegExp(
+          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+      .hasMatch(value);
+
   @override
   Widget build(BuildContext context) {
     var getText = TextEditingController();
@@ -56,6 +60,11 @@ class InputTextField extends StatelessWidget {
       controller: getText,
       onChanged: (_) {
         bloc(getText.text);
+      },
+      validator: (value) {
+        if (value.isEmpty) return 'Campo invalido';
+        if (onValidateEmail(value) == false) return 'E-mail invalido';
+        return null;
       },
     );
   }
