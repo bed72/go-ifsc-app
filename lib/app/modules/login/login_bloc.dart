@@ -24,7 +24,6 @@ class LoginBloc extends Disposable {
   Stream<String> get getPassword => _subjectPassword.stream;
 
   void setToken(String value) {
-    //print('\n\nToken ${this.token}  \n\n');
     _subjectToken.sink.add(value);
     getToken.listen((event) => this.token = event);
   }
@@ -40,10 +39,8 @@ class LoginBloc extends Disposable {
   }
 
   fetchLogin() async {
-    print('\n\nAntes ${this.email} \n ${this.password} \n\n');
     token = await _repository.doLogin(this.email, this.password);
     setToken(token);
-    //print('\nOlá: $token \n');
   }
 
   //dispose will be called automatically by closing its streams

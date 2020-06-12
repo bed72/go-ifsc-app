@@ -12,7 +12,7 @@ class LoginRepositoty {
   LoginRepositoty(this.http);
 
   Future<String> doLogin(String email, String password) async {
-    print('\n\n $email \n $password \n\n');
+    print('\n\n Email: $email \n Senha: ... \n\n');
     Response response = await http.post(
       Urls.login,
       body: {"email": email, "password": password},
