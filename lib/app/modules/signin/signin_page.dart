@@ -33,7 +33,7 @@ class _SigninPageState extends State<SigninPage> {
                   SignUpButton(
                     text: 'Já possui cadastro?',
                     textInfo: ' Login',
-                    route: '/login/login',
+                    route: '/login',
                   ),
                 ],
               ),

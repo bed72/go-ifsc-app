@@ -29,7 +29,7 @@ class SignUpButton extends StatelessWidget {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       padding: EdgeInsets.only(
-        top: 150,
+        top: 160,
       ),
       onPressed: () {
         Modular.to.pushReplacementNamed(this.route);

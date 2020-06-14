@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 class StaggerAnimation extends StatelessWidget {
   final AnimationController controller;
   final bloc;
-  final GlobalKey<FormState> forKey;
+  final snapshot;
 
   StaggerAnimation(
-      {@required this.controller, @required this.bloc, @required this.forKey})
+      {@required this.controller, @required this.bloc, @required this.snapshot})
       : buttonSqueeze = Tween(
           begin: 320.0,
           end: 60.0,
@@ -32,24 +32,18 @@ class StaggerAnimation extends StatelessWidget {
   final Animation<double> buttonZoomOut;
 
   Widget _builderAnimation(BuildContext context, Widget child) {
-    String _token = "";
-
     return Padding(
-      padding: EdgeInsets.only(bottom: 50),
+      padding: EdgeInsets.only(bottom: 70),
       child: InkWell(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
-        onTap: () async {
-          if (this.forKey.currentState.validate()) {
-            // Tratar sistema de login
-            await bloc.fetchLogin();
-            await bloc.getToken.listen((event) => _token = event);
-            if (_token.isNotEmpty) {
-              // Prossiga com a animação e login
-              controller.forward();
-            } else {
-              print('\n ERROOOR \n');
-            }
+        onTap: () {
+          // snapshot.hasData => retorna o bool da Stream
+          if (snapshot.hasData == true) {
+            bloc.fetchLogin();
+            controller.forward();
+          } else {
+            print('\n Error: ${snapshot.data} \n');
           }
         },
         child: buttonZoomOut.value <= 60
