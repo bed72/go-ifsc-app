@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_ifsc/app/modules/core/widgets/global_snack_widget.dart';
 
 class StaggerAnimation extends StatelessWidget {
   final AnimationController controller;
@@ -43,7 +44,8 @@ class StaggerAnimation extends StatelessWidget {
             bloc.fetchLogin();
             controller.forward();
           } else {
-            print('\n Error: ${snapshot.data} \n');
+            print('\nSNAP: ${snapshot.error} \n');
+            GlobalScaffold.instance.showSnachbar(_snackbar(context, snapshot));
           }
         },
         child: buttonZoomOut.value <= 60
@@ -72,6 +74,27 @@ class StaggerAnimation extends StatelessWidget {
       ),
     );
   }
+
+  Widget _snackbar(BuildContext context, dynamic snapshot) => SnackBar(
+        content: Text(
+          snapshot == null ? 'Preencha os campos' : '${snapshot.error}',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontFamily: 'Google',
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        backgroundColor: Colors.red.shade300,
+        duration: Duration(seconds: 5),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(5),
+          ),
+        ),
+      );
 
   Widget _buildInside(BuildContext context) {
     // o texto ainda cabe
