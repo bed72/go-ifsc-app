@@ -16,7 +16,7 @@ class LoginModule extends ChildModule {
 
   @override
   List<Router> get routers => [
-        Router('/login', child: (_, args) => LoginPage()),
+        Router(Modular.initialRoute, child: (_, args) => LoginPage()),
         Router(
           '/home',
           module: HomeModule(),

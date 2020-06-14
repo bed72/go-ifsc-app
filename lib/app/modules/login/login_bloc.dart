@@ -1,53 +1,40 @@
+import 'package:go_ifsc/app/modules/login/validators/validators.dart';
 import 'package:rxdart/rxdart.dart';
 import 'repository/login_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class LoginBloc extends Disposable {
-  final LoginRepositoty _repository;
-  String token = "";
-  String email = "";
-  String password = "";
+class LoginBloc extends Disposable with Validators {
+  final LoginRepositoty _repositoryController;
 
-  BehaviorSubject<String> _subjectToken;
-  BehaviorSubject<String> _subjectEmail;
-  BehaviorSubject<String> _subjectPassword;
+  final _tokenController = BehaviorSubject<String>();
+  final _emailController = BehaviorSubject<String>();
+  final _passwordController = BehaviorSubject<String>();
 
-  LoginBloc(this._repository) {
-    _subjectToken = BehaviorSubject<String>.seeded(this.token);
-    _subjectEmail = BehaviorSubject<String>.seeded(this.email);
-    _subjectPassword = BehaviorSubject<String>.seeded(this.password);
-  }
-  Stream<String> get getToken => _subjectToken.stream;
+  LoginBloc(this._repositoryController);
 
-  Stream<String> get getEmail => _subjectEmail.stream;
+  Stream<String> get getToken => _tokenController.stream;
+  Stream<String> get getEmail =>
+      _emailController.stream.transform(validateEmail);
+  Stream<String> get getPassword =>
+      _passwordController.stream.transform(validatePassword);
+  Stream<bool> get submitValid => CombineLatestStream.combine2(
+      getEmail, getPassword, (email, password) => true);
 
-  Stream<String> get getPassword => _subjectPassword.stream;
-
-  void setToken(String value) {
-    _subjectToken.sink.add(value);
-    getToken.listen((event) => this.token = event);
-  }
-
-  void setEmail(String value) {
-    _subjectEmail.sink.add(value);
-    getEmail.listen((event) => this.email = event);
-  }
-
-  void setPassword(String value) {
-    _subjectPassword.sink.add(value);
-    getPassword.listen((event) => this.password = event);
-  }
+  Function(String) get changeEmail => _emailController.sink.add;
+  Function(String) get changePassword => _passwordController.sink.add;
 
   fetchLogin() async {
-    token = await _repository.doLogin(this.email, this.password);
-    setToken(token);
+    String token = "";
+    final String validEmail = _emailController.value;
+    final String validPassword = _passwordController.value;
+    token = await _repositoryController.doLogin(validEmail, validPassword);
   }
 
   //dispose will be called automatically by closing its streams
   @override
   void dispose() {
-    _subjectToken.close();
-    _subjectEmail.close();
-    _subjectPassword.close();
+    _tokenController.close();
+    _emailController.close();
+    _passwordController.close();
   }
 }
