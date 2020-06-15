@@ -6,8 +6,11 @@ class SignUpButton extends StatelessWidget {
   final String textInfo;
   final String route;
 
-  SignUpButton(
-      {@required this.text, @required this.textInfo, @required this.route});
+  SignUpButton({
+    @required this.text,
+    @required this.textInfo,
+    @required this.route,
+  });
 
   Widget _textBold(BuildContext context, String text) {
     return Text(
