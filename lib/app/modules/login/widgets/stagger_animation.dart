@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_ifsc/app/modules/core/viewcontroler/connection_viewcontrole.dart';
 import 'package:go_ifsc/app/modules/core/widgets/snackbar_widget.dart';
 import 'package:go_ifsc/app/modules/core/widgets/global_snack_widget.dart';
 
@@ -42,13 +43,26 @@ class StaggerAnimation extends StatelessWidget {
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () {
-          // snapshot.hasData => retorna o bool da Stream
           if (snapshot.hasData == true) {
-            bloc.fetchLogin();
-            controller.forward();
-          } else {
-            print('\nSNAP: ${snapshot.error} \n');
-            GlobalScaffold.instance.showSnachbar(_snackbar(context, snapshot));
+            print('\n Dados: ${snapshot} \n');
+            //   var _checkConnection =
+            //       ConnectionController.instance.checkConection();
+
+            //   _checkConnection.then((value) => {
+            //         if (value == true)
+            //           {
+            //             GlobalScaffold.instance
+            //                 .showSnachbar(_snackConnection(context)),
+            //           }
+            //         else
+            //           {
+            //             bloc.fetchLogin(),
+            //             controller.forward(),
+            //           }
+            //       });
+            // } else {
+            //   print('\nSNAP: ${snapshot.error} \n');
+            //   GlobalScaffold.instance.showSnachbar(_snackbar(context, snapshot));
           }
         },
         child: buttonZoomOut.value <= 60
@@ -86,6 +100,13 @@ class StaggerAnimation extends StatelessWidget {
         context,
         snapshot,
         Colors.red.shade300,
+        4,
+      );
+
+  Widget _snackConnection(BuildContext context) => snackbarConnectionWidget(
+        'Não a conexão',
+        context,
+        Colors.grey.shade800,
         4,
       );
 

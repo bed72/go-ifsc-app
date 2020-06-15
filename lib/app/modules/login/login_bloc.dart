@@ -23,11 +23,10 @@ class LoginBloc extends Disposable with Validators {
   Function(String) get changeEmail => _emailController.sink.add;
   Function(String) get changePassword => _passwordController.sink.add;
 
-  fetchLogin() async {
-    String token = "";
+  Future<String> fetchLogin() async {
     final String validEmail = _emailController.value;
     final String validPassword = _passwordController.value;
-    token = await _repositoryController.doLogin(validEmail, validPassword);
+    return await _repositoryController.doLogin(validEmail, validPassword);
   }
 
   //dispose will be called automatically by closing its streams
