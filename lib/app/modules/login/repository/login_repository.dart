@@ -17,13 +17,16 @@ class LoginRepositoty {
     Response response = await http.post(
       Urls.login,
       body: {"email": email, "password": password},
-      headers: {HttpHeaders.authorizationHeader: 'bearer $_token'},
+      headers: {
+        HttpHeaders.authorizationHeader: 'bearer $_token',
+      },
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       return response.body;
     } else {
-      return throw Exception('Erro ao realizar o Login :( ${response.body}');
+      return throw Exception(
+          'Erro ao realizar o Login :( ${response.body.runtimeType}');
     }
   }
 }

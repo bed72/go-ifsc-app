@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:go_ifsc/app/modules/login/login_bloc.dart';
 import 'package:go_ifsc/app/modules/core/widgets/app_bar_widget.dart';
-import 'package:go_ifsc/app/modules/core/widgets/input_text_widget.dart';
 import 'package:go_ifsc/app/modules/login/widgets/sigin_up_button.dart';
+import 'package:go_ifsc/app/modules/core/widgets/input_text_widget.dart';
 import 'package:go_ifsc/app/modules/login/widgets/stagger_animation.dart';
 
 class LoginPage extends StatefulWidget {
@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage>
   @override
   void initState() {
     super.initState();
+
     _animationController = AnimationController(
       vsync: this,
       // Tempo para diminuir button e checar login 5 sec
