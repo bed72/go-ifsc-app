@@ -1,14 +1,16 @@
-import 'package:connectivity/connectivity.dart';
+import 'dart:io';
 
 class ConnectionController {
   static final ConnectionController instance = ConnectionController();
 
-  Future<bool> checkConection() async {
-    var _connection = await Connectivity().checkConnectivity();
-
-    if (_connection == ConnectivityResult.none)
-      return true; // Não a conexão
-    else
-      return false; // A conexão
+  Future checkConection() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        return true; // A conexão
+      }
+    } on SocketException catch (_) {
+      return false; // Não a conexão
+    }
   }
 }

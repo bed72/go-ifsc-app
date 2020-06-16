@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
           ];
         },
         body: Center(
-          child: Text('Home'),
+          child: Text('Nada por enquanto!'),
         ),
       ),
     );

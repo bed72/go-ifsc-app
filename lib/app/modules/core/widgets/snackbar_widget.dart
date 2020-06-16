@@ -8,7 +8,9 @@ Widget snackbarWidget(
 ) {
   return SnackBar(
     content: Text(
-      snapshot.data == null ? 'Preencha os campos' : '${snapshot.error}',
+      snapshot.data == null
+          ? 'Preencha os campos corretamente!'
+          : '${snapshot.error}',
       style: TextStyle(
         color: Colors.white,
         fontSize: 14,

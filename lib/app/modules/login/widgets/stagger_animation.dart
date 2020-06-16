@@ -43,27 +43,7 @@ class StaggerAnimation extends StatelessWidget {
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () {
-          if (snapshot.hasData == true) {
-            print('\n Dados: ${snapshot} \n');
-            //   var _checkConnection =
-            //       ConnectionController.instance.checkConection();
-
-            //   _checkConnection.then((value) => {
-            //         if (value == true)
-            //           {
-            //             GlobalScaffold.instance
-            //                 .showSnachbar(_snackConnection(context)),
-            //           }
-            //         else
-            //           {
-            //             bloc.fetchLogin(),
-            //             controller.forward(),
-            //           }
-            //       });
-            // } else {
-            //   print('\nSNAP: ${snapshot.error} \n');
-            //   GlobalScaffold.instance.showSnachbar(_snackbar(context, snapshot));
-          }
+          _login(context, snapshot, bloc);
         },
         child: buttonZoomOut.value <= 60
             ? Container(
@@ -103,8 +83,9 @@ class StaggerAnimation extends StatelessWidget {
         4,
       );
 
-  Widget _snackConnection(BuildContext context) => snackbarConnectionWidget(
-        'Não a conexão',
+  Widget _snackConnection(BuildContext context, text) =>
+      snackbarConnectionWidget(
+        '$text',
         context,
         Colors.grey.shade800,
         4,
@@ -136,5 +117,57 @@ class StaggerAnimation extends StatelessWidget {
       builder: _builderAnimation,
       animation: controller,
     );
+  }
+
+  // Melhorar isso pois a muita responsabilidade na view
+  _login(BuildContext context, snapshot, bloc) {
+    // snapshot => esta valido ou não os campos
+    if (snapshot.hasData == true) {
+      // Instancia da classe Singleton para conexão
+      var _checkConnection = ConnectionController.instance.checkConection();
+      // Verificando se há conexão com a internet
+      _checkConnection.then(
+        (value) => {
+          // Se falso então não a conexão
+          if (value == false)
+            {
+              // dispacha uma snackbar avisando o usuario que não a conexão
+              GlobalScaffold.instance.showSnachbar(
+                _snackConnection(
+                  context,
+                  'Não a conexão!',
+                ),
+              ),
+            }
+          else if (value == true)
+            {
+              // Caso haja conexão validação de login e senha
+              bloc.fetchLogin().then(
+                    (value) => {
+                      if (value.statusCode == 200 || value.statusCode == 201)
+                        {
+                          bloc.fetchLogin(),
+                          controller.forward(),
+                        }
+                      else if (value.statusCode == 400 ||
+                          value.statusCode == 401)
+                        {
+                          GlobalScaffold.instance.showSnachbar(
+                            _snackConnection(
+                              context,
+                              'Credenciais inválidas',
+                            ),
+                          ),
+                        }
+                    },
+                  ),
+            }
+        },
+      );
+    } else {
+      GlobalScaffold.instance.showSnachbar(
+        _snackbar(context, snapshot),
+      );
+    }
   }
 }
