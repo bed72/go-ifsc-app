@@ -27,7 +27,6 @@ dependencies:
   flutter_modular: ^1.2.5+1
 
   flare_flutter: ^2.0.3
-  connectivity: ^0.4.8+6
 
   flutter:
     sdk: flutter

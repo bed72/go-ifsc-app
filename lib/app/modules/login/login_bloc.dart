@@ -1,3 +1,4 @@
+import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 import 'repository/login_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -23,7 +24,7 @@ class LoginBloc extends Disposable with Validators {
   Function(String) get changeEmail => _emailController.sink.add;
   Function(String) get changePassword => _passwordController.sink.add;
 
-  Future<String> fetchLogin() async {
+  Future<Response> fetchLogin() async {
     final String validEmail = _emailController.value;
     final String validPassword = _passwordController.value;
     return await _repositoryController.doLogin(validEmail, validPassword);
