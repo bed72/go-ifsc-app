@@ -39,6 +39,7 @@ class _LoginPageState extends State<LoginPage>
   @override
   void dispose() {
     _animationController.dispose();
+    loginBloc.dispose();
     super.dispose();
   }
 

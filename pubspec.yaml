@@ -27,6 +27,7 @@ dependencies:
   flutter_modular: ^1.2.5+1
 
   flare_flutter: ^2.0.3
+  flutter_staggered_animations: ^0.1.2
 
   flutter:
     sdk: flutter

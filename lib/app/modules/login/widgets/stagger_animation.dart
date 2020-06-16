@@ -18,7 +18,7 @@ class StaggerAnimation extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: controller,
-            curve: Interval(0.0, 0.150),
+            curve: Interval(0.0, 0.160),
           ),
         ),
         buttonZoomOut = Tween(
@@ -27,7 +27,7 @@ class StaggerAnimation extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: controller,
-            curve: Interval(0.5, 1, curve: Curves.bounceOut),
+            curve: Interval(0.5, 1, curve: Curves.bounceInOut),
           ),
         );
   // Animação para incolher button login
@@ -38,24 +38,21 @@ class StaggerAnimation extends StatelessWidget {
 
   Widget _builderAnimation(BuildContext context, Widget child) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 70),
-      child: InkWell(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        onTap: () {
+      padding: EdgeInsets.only(bottom: 75),
+      child: RaisedButton(
+        onPressed: () {
           _login(context, snapshot, bloc);
         },
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(
+            buttonZoomOut.value < 500 ? 27 : 0,
+          ),
+        ),
         child: buttonZoomOut.value <= 60
             ? Container(
                 width: buttonSqueeze.value,
                 height: 60,
                 alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(27),
-                  ),
-                ),
                 child: _buildInside(context),
               )
             : Container(
