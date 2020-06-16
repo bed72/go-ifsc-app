@@ -11,8 +11,6 @@ class SigninPage extends StatefulWidget {
 }
 
 class _SigninPageState extends State<SigninPage> {
-  GlobalKey<FormState> _forKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,17 +24,14 @@ class _SigninPageState extends State<SigninPage> {
             // AppBar login
             AppTitleBar(title: 'Signin'),
 
-            Form(
-              key: _forKey,
-              child: Column(
-                children: <Widget>[
-                  SignUpButton(
-                    text: 'Já possui cadastro?',
-                    textInfo: ' Login',
-                    route: '/login',
-                  ),
-                ],
-              ),
+            Column(
+              children: <Widget>[
+                SignUpButton(
+                  text: 'Já possui cadastro?',
+                  textInfo: ' Login',
+                  route: '/login',
+                ),
+              ],
             ),
           ],
         ),
