@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:go_ifsc/app/modules/home/widgets/card_widget.dart';
 import 'package:go_ifsc/app/modules/home/widgets/sliver_app_bar_widget.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+
+import 'widgets/card_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -52,7 +53,7 @@ class _HomePageState extends State<HomePage> {
             columnCount: 1,
             child: ScaleAnimation(
               child: GestureDetector(
-                child: null,
+                child: CardWidget(),
                 onTap: () => null,
               ),
             ),
