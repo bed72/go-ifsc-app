@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "967113650608",
+    "firebase_url": "https://go-ifsc-a8f0f.firebaseio.com",
+    "project_id": "go-ifsc-a8f0f",
+    "storage_bucket": "go-ifsc-a8f0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967113650608:android:3ea32be88d7ee0dedf6675",
+        "android_client_info": {
+          "package_name": "com.example.go_ifsc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967113650608-uhm0pe8g2o3u70olcg7fgs43hsv468j8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC80jQVUA5BwxIdjAVx3dYKXQ5ToDPYP10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967113650608-uhm0pe8g2o3u70olcg7fgs43hsv468j8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
