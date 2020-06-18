@@ -2,6 +2,11 @@ import 'package:go_ifsc/app/modules/core/interfaces/local_storage_interface.dart
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedLocalStorageService implements ILocalStorage {
+  SharedLocalStorageService._();
+
+  static final SharedLocalStorageService localShared =
+      SharedLocalStorageService._();
+
   @override
   Future delete(String key) async {
     var shared = await SharedPreferences.getInstance();
