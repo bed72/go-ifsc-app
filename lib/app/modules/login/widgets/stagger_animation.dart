@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_ifsc/app/modules/core/viewcontroler/connection_viewcontrole.dart';
+import 'package:go_ifsc/app/modules/core/viewmodels/connection_viewmodel.dart';
 import 'package:go_ifsc/app/modules/core/widgets/snackbar_widget.dart';
 import 'package:go_ifsc/app/modules/core/widgets/global_snack_widget.dart';
 
@@ -13,7 +13,7 @@ class StaggerAnimation extends StatelessWidget {
     @required this.bloc,
     @required this.snapshot,
   })  : buttonSqueeze = Tween(
-          begin: 320.0,
+          begin: 290.0,
           end: 60.0,
         ).animate(
           CurvedAnimation(
