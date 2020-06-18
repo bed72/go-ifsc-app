@@ -1,9 +1,8 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:go_ifsc/app/modules/core/interfaces/local_storage_interface.dart';
-import 'package:go_ifsc/app/modules/core/services/shared_local_storage_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import '../core/services/shared_local_storage_service.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -12,7 +11,6 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   final FirebaseMessaging _fcm = FirebaseMessaging();
-  final ILocalStorage storage = SharedLocalStorageService();
 
   String _assets = "assets/animate/ifsc.flr";
   String _animationName = "ping";
@@ -36,6 +34,7 @@ class _SplashPageState extends State<SplashPage> {
       onMessage: (Map<String, dynamic> message) async {
         print('\n\nonMessage: ${message.runtimeType}\n\n');
       },
+      onBackgroundMessage: myBackgroundMessageHandler,
       onLaunch: (Map<String, dynamic> message) async {
         print('\n\nonLaunch: ${message.runtimeType}\n\n');
       },
@@ -65,8 +64,23 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 
+  Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
+    if (message.containsKey('data')) {
+      // Handle data message
+      final dynamic data = message['data'];
+      return data;
+    }
+
+    if (message.containsKey('notification')) {
+      // Handle notification message
+      final dynamic notification = message['notification'];
+      return notification;
+    }
+    return null;
+  }
+
   Future changeToken(String token) async {
-    await storage.put('tokenFirebase', token);
+    await SharedLocalStorageService.localShared.put('tokenFirebase', token);
   }
 
   @override
