@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:go_ifsc/app/core/widgets/global_snack_widget.dart';
+import 'package:go_ifsc/themes/app_theme.dart';
 
 class AppWidget extends StatelessWidget {
   @override
@@ -9,11 +10,8 @@ class AppWidget extends StatelessWidget {
       navigatorKey: Modular.navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Go IFSC',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        brightness: Brightness.dark,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: AppTheme(context).defaultTheme,
+      darkTheme: AppTheme(context).defaultThemeDark,
       builder: (context, child) {
         return Scaffold(
           key: GlobalScaffold.instance.getScaffkey,

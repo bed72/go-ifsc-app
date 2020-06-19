@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_ifsc/themes/app_colors.dart';
 
 class SliverTitleAppBar extends StatelessWidget {
   final String title;
@@ -22,7 +23,7 @@ class SliverTitleAppBar extends StatelessWidget {
         title: Text(
           'Olá $title',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 18,
             fontWeight: FontWeight.w700,
             letterSpacing: 0.5,
@@ -31,7 +32,7 @@ class SliverTitleAppBar extends StatelessWidget {
         background: Image.asset(
           'assets/img/sliver.jpg',
           fit: BoxFit.cover,
-          color: Colors.black45,
+          color: AppColors.black54,
           colorBlendMode: BlendMode.darken,
         ),
       ),

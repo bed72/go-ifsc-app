@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_ifsc/themes/app_colors.dart';
 
 class AppTitleBar extends StatelessWidget {
   final String title;
@@ -18,9 +19,9 @@ class AppTitleBar extends StatelessWidget {
                 child: Text(
                   this.title,
                   style: TextStyle(
-                    fontFamily: 'Google',
                     fontWeight: FontWeight.bold,
                     fontSize: 28,
+                    color: AppColors.white,
                   ),
                 ),
               ),

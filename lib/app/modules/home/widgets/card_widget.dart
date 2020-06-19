@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_ifsc/themes/app_colors.dart';
 
 class CardWidget extends StatefulWidget {
   final String title;
@@ -34,7 +35,7 @@ class _CardWidgetState extends State<CardWidget> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        shadowColor: Colors.black54,
+        shadowColor: AppColors.black54,
         elevation: 5,
         child: Padding(
           padding: EdgeInsets.all(15),
@@ -61,10 +62,9 @@ class _CardWidgetState extends State<CardWidget> {
                         Text(
                           this.title,
                           style: TextStyle(
-                            fontFamily: 'Google',
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: AppColors.white,
                           ),
                         ),
                       ],
@@ -80,10 +80,9 @@ class _CardWidgetState extends State<CardWidget> {
                             this.body,
                             overflow: TextOverflow.clip,
                             style: TextStyle(
-                              fontFamily: 'Google',
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                              color: AppColors.white,
                             ),
                           ),
                         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:go_ifsc/themes/app_colors.dart';
 
 class SignUpButton extends StatelessWidget {
   final String text;
@@ -19,7 +20,7 @@ class SignUpButton extends StatelessWidget {
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontWeight: FontWeight.w800,
-        color: Colors.green,
+        color: AppColors.primary,
         fontSize: 15,
         letterSpacing: 0.5,
       ),
@@ -48,7 +49,7 @@ class SignUpButton extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontWeight: FontWeight.w300,
-              color: Colors.white,
+              color: AppColors.white,
               fontSize: 15,
               letterSpacing: 0.5,
             ),

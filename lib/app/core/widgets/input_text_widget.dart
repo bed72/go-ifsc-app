@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_ifsc/themes/app_colors.dart';
 
 /// __TextField Text__
 ///
@@ -42,12 +43,12 @@ class InputTextField extends StatelessWidget {
       decoration: InputDecoration(
         border: OutlineInputBorder(),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white38, width: 2.0),
+          borderSide: const BorderSide(color: AppColors.white38, width: 2.0),
         ),
         hintText: '$hintText',
         labelText: '$labelText',
-        hintStyle: TextStyle(fontSize: 14.0, color: Colors.white38),
-        labelStyle: TextStyle(color: Colors.white38),
+        hintStyle: TextStyle(fontSize: 14.0, color: AppColors.white38),
+        labelStyle: TextStyle(color: AppColors.white38),
         prefixIcon: typeIcon,
         errorText: errorText == null ? null : errorText(),
       ),

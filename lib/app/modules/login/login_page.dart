@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:go_ifsc/app/core/widgets/sigin_up_button.dart';
 import 'package:go_ifsc/app/modules/login/login_bloc.dart';
 import 'package:go_ifsc/app/core/widgets/app_bar_widget.dart';
 import 'package:go_ifsc/app/core/widgets/input_text_widget.dart';
-import 'package:go_ifsc/app/modules/login/widgets/sigin_up_button.dart';
+
 import 'package:go_ifsc/app/modules/login/widgets/stagger_animation.dart';
+import 'package:go_ifsc/themes/app_colors.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -103,12 +105,12 @@ class _LoginPageState extends State<LoginPage>
           labelText: 'E-mail',
           typeIcon: Icon(
             Icons.email,
-            color: Colors.white38,
+            color: AppColors.white38,
           ),
           errorText: () => snapshot.error,
           typeInput: TextInputType.emailAddress,
           maxLength: 128,
-          color: Colors.white60,
+          color: AppColors.white60,
           bloc: bloc.changeEmail,
         );
       },
@@ -124,13 +126,13 @@ class _LoginPageState extends State<LoginPage>
           labelText: 'Password',
           typeIcon: Icon(
             Icons.lock,
-            color: Colors.white38,
+            color: AppColors.white38,
           ),
           obscure: true,
           errorText: () => snapshot.error,
           typeInput: TextInputType.text,
           maxLength: 256,
-          color: Colors.white60,
+          color: AppColors.white60,
           bloc: bloc.changePassword,
         );
       },
