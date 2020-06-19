@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:go_ifsc/app/modules/core/widgets/global_snack_widget.dart';
+import 'package:go_ifsc/app/core/widgets/global_snack_widget.dart';
 
 class AppWidget extends StatelessWidget {
   @override

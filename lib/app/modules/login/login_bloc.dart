@@ -1,8 +1,9 @@
+import 'package:go_ifsc/app/core/validators/validators.dart';
 import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 import 'repository/login_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:go_ifsc/app/modules/login/validators/validators.dart';
+import 'package:go_ifsc/app/core/services/shared_local_storage_service.dart';
 
 class LoginBloc extends Disposable with Validators {
   final LoginRepositoty _repositoryController;
@@ -25,9 +26,13 @@ class LoginBloc extends Disposable with Validators {
   Function(String) get changePassword => _passwordController.sink.add;
 
   Future<Response> fetchLogin() async {
+    Response _token;
     final String validEmail = _emailController.value;
     final String validPassword = _passwordController.value;
-    return await _repositoryController.doLogin(validEmail, validPassword);
+    _token = await _repositoryController.doLogin(validEmail, validPassword);
+    // Setando token da sessão
+    SharedLocalStorageService.localShared.put('sessionToken', _token.body);
+    return _token;
   }
 
   //dispose will be called automatically by closing its streams

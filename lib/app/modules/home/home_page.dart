@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:go_ifsc/app/app_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:go_ifsc/app/core/models/message_model.dart';
 import 'package:go_ifsc/app/modules/home/widgets/sliver_app_bar_widget.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
@@ -11,6 +13,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final appBloc = Modular.get<AppBloc>();
+
+  @override
+  void initState() {
+    super.initState();
+    appBloc.allMessages();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +41,20 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Expanded(
-                child: Container(
-                  child: _buildList(),
+                child: StreamBuilder(
+                  stream: appBloc.messages,
+                  builder:
+                      (context, AsyncSnapshot<List<MessageModel>> snapshot) {
+                    if (snapshot.hasData) {
+                      return _buildList(snapshot);
+                    } else if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    }
+
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
                 ),
               ),
             ],
@@ -37,10 +64,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildList() {
+  Widget _buildList(AsyncSnapshot<List<MessageModel>> snapshot) {
     return AnimationLimiter(
       child: GridView.builder(
-        itemCount: 5,
+        itemCount: snapshot.data.length,
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.only(top: 5, bottom: 10),
         primary: true,
@@ -54,7 +81,10 @@ class _HomePageState extends State<HomePage> {
             columnCount: 1,
             child: ScaleAnimation(
               child: GestureDetector(
-                child: CardWidget(),
+                child: CardWidget(
+                  title: snapshot.data[index].title,
+                  body: snapshot.data[index].body,
+                ),
                 onTap: () => null,
               ),
             ),

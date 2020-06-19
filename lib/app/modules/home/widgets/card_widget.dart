@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
 
 class CardWidget extends StatefulWidget {
+  final String title;
+  final String body;
+
+  CardWidget({
+    Key key,
+    @required this.title,
+    @required this.body,
+  }) : super(key: key);
   @override
-  _CardWidgetState createState() => _CardWidgetState();
+  _CardWidgetState createState() => _CardWidgetState(
+        title: title,
+        body: body,
+      );
 }
 
 class _CardWidgetState extends State<CardWidget> {
+  final String title;
+  final String body;
+
+  _CardWidgetState({
+    @required this.title,
+    @required this.body,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,20 +59,37 @@ class _CardWidgetState extends State<CardWidget> {
                           padding: EdgeInsets.all(5),
                         ),
                         Text(
-                          'Titulo',
+                          this.title,
                           style: TextStyle(
                             fontFamily: 'Google',
-                            fontSize: 28,
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(5),
-                        ),
                       ],
                     ),
                   ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Container(
+                        child: Flexible(
+                          child: Text(
+                            this.body,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                              fontFamily: 'Google',
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ],
