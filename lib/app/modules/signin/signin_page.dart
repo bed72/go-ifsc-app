@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../core/widgets/app_bar_widget.dart';
 import '../login/widgets/sigin_up_button.dart';
+import 'package:go_ifsc/app/core/widgets/app_bar_widget.dart';
 
 class SigninPage extends StatefulWidget {
   const SigninPage({Key key}) : super(key: key);

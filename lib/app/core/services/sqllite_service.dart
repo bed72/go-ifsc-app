@@ -1,8 +1,7 @@
 import 'dart:io';
-
-import 'package:go_ifsc/app/modules/core/models/user_model.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:go_ifsc/app/core/models/message_model.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
 
 class DBService {
   DBService._();
@@ -14,7 +13,7 @@ class DBService {
   final String dataBase = "go.db";
   final String tableNotification = "notifications";
   final String createTableNotification =
-      "CREATE TABLE notifications(id INTEGER PRIMARY KEY, title TEXT, body TEXT)";
+      "CREATE TABLE notifications(id INTEGER PRIMARY KEY, title TEXT, body TEXT, message TEXT)";
 
   Future<Database> get database async {
     if (_database != null) return _database;
@@ -36,7 +35,7 @@ class DBService {
     );
   }
 
-  Future create(UserModel model) async {
+  Future create(MessageModel model) async {
     try {
       final Database _db = await database;
       await _db.insert(
@@ -45,50 +44,67 @@ class DBService {
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     } catch (e) {
-      print('\n\nError no create: \n$e \n\n');
+      print('\n\nError no create: \n${e.toString()} \n\n');
       return;
     }
   }
 
-  Future index(String name) async {
+  Future index(String title) async {
     try {
       final Database _db = await database;
       await _db.query(
         this.tableNotification,
-        where: "name = ?",
-        whereArgs: [name],
+        where: "title = ?",
+        whereArgs: [title],
       );
     } catch (e) {
-      print('\n\nError no create: \n$e \n\n');
+      print('\n\nError no index: \n${e.toString()} \n\n');
       return;
     }
   }
 
-  Future update(UserModel model) async {
+  Future show() async {
+    try {
+      final Database _db = await database;
+      var response = await _db.query(
+        this.tableNotification,
+      );
+      List<MessageModel> list = response.isNotEmpty
+          ? response.map((e) => MessageModel.fromMap(e)).toList()
+          : [];
+
+      return list;
+    } catch (e) {
+      print('\n\nError no show: \n${e.toString()} \n\n');
+      return;
+    }
+  }
+
+  Future update(MessageModel model) async {
     try {
       final Database _db = await database;
       await _db.update(
         this.tableNotification,
         model.toMap(),
-        where: "name = ?",
-        whereArgs: [model.name],
+        where: "title = ?",
+        whereArgs: [model.title],
       );
     } catch (e) {
-      print('\n\nError no update: \n$e \n\n');
+      print('\n\nError no update: \n${e.toString()} \n\n');
       return;
     }
   }
 
-  Future delete(UserModel model) async {
+  Future delete(String title) async {
     try {
       final Database _db = await database;
       await _db.delete(
         this.tableNotification,
-        where: "name = ?",
-        whereArgs: [model.name],
+        where: "title = ?",
+        whereArgs: [title],
       );
     } catch (e) {
-      print('\n\nError no delete: \n$e \n\n');
+      print('\n\nError no delete: \n${e.toString()} \n\n');
       return;
     }
   }

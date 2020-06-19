@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_ifsc/app/modules/core/widgets/snackbar_widget.dart';
-import 'package:go_ifsc/app/modules/core/widgets/global_snack_widget.dart';
-import 'package:go_ifsc/app/modules/core/services/connection_viewmodel.dart';
+import 'package:go_ifsc/app/core/widgets/snackbar_widget.dart';
+import 'package:go_ifsc/app/core/widgets/global_snack_widget.dart';
+import 'package:go_ifsc/app/core/services/connection_viewmodel.dart';
 
 class StaggerAnimation extends StatelessWidget {
   final AnimationController controller;

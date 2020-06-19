@@ -1,4 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:go_ifsc/app/modules/home/home_module.dart';
 
 import 'package:go_ifsc/app/modules/login/login_module.dart';
 import 'package:go_ifsc/app/modules/splash/splash_bloc.dart';
@@ -16,6 +17,11 @@ class SplashModule extends ChildModule {
         Router(
           '/login',
           module: LoginModule(),
+          transition: TransitionType.rightToLeftWithFade,
+        ),
+        Router(
+          '/home',
+          module: HomeModule(),
           transition: TransitionType.rightToLeftWithFade,
         ),
       ];
