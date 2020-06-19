@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_ifsc/themes/app_colors.dart';
 
 Widget snackbarWidget(
   BuildContext context,
@@ -12,9 +13,8 @@ Widget snackbarWidget(
           ? 'Preencha os campos corretamente!'
           : '${snapshot.error}',
       style: TextStyle(
-        color: Colors.white,
+        color: AppColors.white,
         fontSize: 14,
-        fontFamily: 'Google',
         fontWeight: FontWeight.bold,
       ),
       textAlign: TextAlign.center,
@@ -42,7 +42,6 @@ Widget snackbarConnectionWidget(
       style: TextStyle(
         color: Colors.white,
         fontSize: 14,
-        fontFamily: 'Google',
         fontWeight: FontWeight.bold,
       ),
       textAlign: TextAlign.center,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_ifsc/app/core/widgets/snackbar_widget.dart';
 import 'package:go_ifsc/app/core/widgets/global_snack_widget.dart';
 import 'package:go_ifsc/app/core/services/connection_viewmodel.dart';
+import 'package:go_ifsc/themes/app_colors.dart';
 
 class StaggerAnimation extends StatelessWidget {
   final AnimationController controller;
@@ -59,7 +60,7 @@ class StaggerAnimation extends StatelessWidget {
                 width: buttonZoomOut.value,
                 height: buttonZoomOut.value,
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: AppColors.primary,
                   shape: buttonZoomOut.value < 500
                       ? BoxShape.circle
                       : BoxShape.rectangle,
@@ -76,7 +77,7 @@ class StaggerAnimation extends StatelessWidget {
       snackbarWidget(
         context,
         snapshot,
-        Colors.red.shade300,
+        AppColors.red,
         4,
       );
 
@@ -94,7 +95,7 @@ class StaggerAnimation extends StatelessWidget {
       return Text(
         'Sign in',
         style: TextStyle(
-          color: Colors.white,
+          color: AppColors.white,
           fontSize: 20,
           fontWeight: FontWeight.w300,
           letterSpacing: 0.3,
