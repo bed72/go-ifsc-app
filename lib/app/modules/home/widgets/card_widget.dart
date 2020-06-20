@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_ifsc/themes/app_colors.dart';
 
+import '../../../../themes/app_colors.dart';
+
 class CardWidget extends StatefulWidget {
   final String title;
   final String body;
@@ -29,14 +31,14 @@ class _CardWidgetState extends State<CardWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
       child: Card(
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
         shadowColor: AppColors.black54,
-        elevation: 5,
+        elevation: 10,
         child: Padding(
           padding: EdgeInsets.all(15),
           child: Stack(
@@ -44,51 +46,69 @@ class _CardWidgetState extends State<CardWidget> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 8.0,
-                      top: 8.0,
-                    ),
+                  Container(
                     child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Icon(
                           Icons.notifications,
-                          size: 24.0,
-                          color: Theme.of(context).buttonColor,
+                          size: 32.0,
+                          color: AppColors.white38,
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(5),
-                        ),
+                        Padding(padding: EdgeInsets.all(10)),
                         Text(
                           this.title,
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: AppColors.white,
+                            letterSpacing: 0.3,
                           ),
                         ),
                       ],
                     ),
                   ),
+                  Container(
+                    padding: EdgeInsets.only(
+                      top: 15.0,
+                      left: 10.0,
+                      right: 10.0,
+                      bottom: 10.0,
+                    ),
+                    child: Text(
+                      this.body,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.white,
+                        letterSpacing: 0.3,
+                      ),
+                    ),
+                  ),
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Container(
-                        child: Flexible(
-                          child: Text(
-                            this.body,
-                            overflow: TextOverflow.clip,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              color: AppColors.white,
-                            ),
-                          ),
+                      Text(
+                        'Mais ...',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          color: AppColors.white,
+                          fontSize: 14,
+                          letterSpacing: 0.5,
                         ),
                       ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.touch_app,
+                        ),
+                        iconSize: 22,
+                        tooltip: 'Mais Informações!',
+                        onPressed: () {},
+                      )
                     ],
-                  )
+                  ),
                 ],
               ),
             ],

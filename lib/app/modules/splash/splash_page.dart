@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:go_ifsc/app/modules/splash/viewmodels/firebase_viewmodels.dart';
+import 'package:go_ifsc/app/core/viewmodels/firebase_viewmodels.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -9,6 +9,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   final FirebaseViewModels firebase = FirebaseViewModels();
+
   String _assets = "assets/animate/ifsc.flr";
   String _animationName = "ping";
 
@@ -16,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     // Configurações das notificações
-    firebase.notification();
+    firebase.setTokenNotification();
     // Configuração das rotas dependendo se o token da sessão ja foi setado
     Future.delayed(Duration(seconds: 5)).then(
       (value) => firebase.changeRoute(),

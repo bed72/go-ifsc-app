@@ -1,8 +1,8 @@
-import 'package:go_ifsc/app/core/validators/validators.dart';
 import 'package:http/http.dart';
 import 'package:rxdart/rxdart.dart';
 import 'repository/login_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:go_ifsc/app/core/validators/validators.dart';
 import 'package:go_ifsc/app/core/services/shared_local_storage_service.dart';
 
 class LoginBloc extends Disposable with Validators {

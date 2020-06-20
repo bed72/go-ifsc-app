@@ -3,6 +3,8 @@ import 'dart:async';
 extension ValidationExtension on String {
   bool isValidPassword() => this.length >= 6;
 
+  bool isValidSearch() => this.length >= 3;
+
   bool isFieldEmpty() => this?.isEmpty ?? true;
 
   bool isValidEmail() {
@@ -29,6 +31,15 @@ class Validators {
       sink.add(password);
     } else {
       sink.addError('Senha Inválida!');
+    }
+  });
+
+  final validateSearch = StreamTransformer<String, String>.fromHandlers(
+      handleData: (search, sink) {
+    if (search.isValidSearch() && !search.isFieldEmpty()) {
+      sink.add(search);
+    } else {
+      sink.addError('Texto pequeno!');
     }
   });
 }

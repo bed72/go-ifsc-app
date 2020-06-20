@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:go_ifsc/themes/app_colors.dart';
 
-class SignUpButton extends StatelessWidget {
+class ButtonNavigate extends StatelessWidget {
   final String text;
   final String textInfo;
   final String route;
 
-  SignUpButton({
+  ButtonNavigate({
     @required this.text,
     @required this.textInfo,
     @required this.route,

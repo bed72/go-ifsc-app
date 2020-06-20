@@ -52,11 +52,17 @@ class DBService {
   Future index(String title) async {
     try {
       final Database _db = await database;
-      await _db.query(
+      var response = await _db.query(
         this.tableNotification,
-        where: "title = ?",
+        where: 'title LIKE ?',
         whereArgs: [title],
       );
+      // var response = await _db
+      //     .rawQuery('SELECT * FROM notifications WHERE title LIKE "%$title"');
+      List<MessageModel> list = response.isNotEmpty
+          ? response.map((e) => MessageModel.fromMap(e)).toList()
+          : [];
+      return list;
     } catch (e) {
       print('\n\nError no index: \n${e.toString()} \n\n');
       return;
@@ -73,7 +79,8 @@ class DBService {
           ? response.map((e) => MessageModel.fromMap(e)).toList()
           : [];
 
-      return list;
+      print('\n SHOW $response \n');
+      return list.reversed.toList();
     } catch (e) {
       print('\n\nError no show: \n${e.toString()} \n\n');
       return;
@@ -86,8 +93,8 @@ class DBService {
       await _db.update(
         this.tableNotification,
         model.toMap(),
-        where: "title = ?",
-        whereArgs: [model.title],
+        where: "id = ?",
+        whereArgs: [model.id],
       );
     } catch (e) {
       print('\n\nError no update: \n${e.toString()} \n\n');
@@ -95,13 +102,13 @@ class DBService {
     }
   }
 
-  Future delete(String title) async {
+  Future delete(int id) async {
     try {
       final Database _db = await database;
       await _db.delete(
         this.tableNotification,
-        where: "title = ?",
-        whereArgs: [title],
+        where: "id = ?",
+        whereArgs: [id],
       );
     } catch (e) {
       print('\n\nError no delete: \n${e.toString()} \n\n');
