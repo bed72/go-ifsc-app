@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:go_ifsc/app/core/widgets/sigin_up_button.dart';
+import 'package:go_ifsc/app/core/widgets/button_navigate.dart';
 import 'package:go_ifsc/app/modules/login/login_bloc.dart';
 import 'package:go_ifsc/app/core/widgets/app_bar_widget.dart';
 import 'package:go_ifsc/app/core/widgets/input_text_widget.dart';
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage>
                           ),
                           passwordTextField(loginBloc),
                           // Button create user
-                          SignUpButton(
+                          ButtonNavigate(
                             text: 'Não possui cadastro?',
                             textInfo: ' Cadastre-se',
                             route: '/login/signin',

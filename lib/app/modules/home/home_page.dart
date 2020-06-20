@@ -1,9 +1,13 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'package:flutter/material.dart';
 import 'package:go_ifsc/app/app_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:go_ifsc/app/core/models/message_model.dart';
+import 'package:go_ifsc/app/core/widgets/input_text_widget.dart';
 import 'package:go_ifsc/app/modules/home/widgets/sliver_app_bar_widget.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:go_ifsc/themes/app_colors.dart';
 
 import 'widgets/card_widget.dart';
 
@@ -13,11 +17,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final FirebaseMessaging _fcm = FirebaseMessaging();
   final appBloc = Modular.get<AppBloc>();
 
   @override
   void initState() {
     super.initState();
+    getNotification();
     appBloc.allMessages();
   }
 
@@ -26,20 +32,82 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
+  void getNotification() {
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('\n\nonMessage: $message\n\n');
+        _setMessage(message);
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('\n\nonLaunch: $message\n\n');
+        _setMessage(message);
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('\n\nonResume: $message\n\n');
+        _setMessage(message);
+      },
+    );
+    _fcm.requestNotificationPermissions(
+      IosNotificationSettings(
+        sound: true,
+        badge: true,
+        alert: true,
+        provisional: true,
+      ),
+    );
+    _fcm.onIosSettingsRegistered.listen(
+      (IosNotificationSettings settings) {
+        print('\n\nConfigurações Registradas: $settings\n\n');
+      },
+    );
+  }
+
+  // Setando messagem em DB
+  void _setMessage(Map<String, dynamic> message) {
+    final notification = message['notification'];
+    final data = message['data'];
+    final String title = notification['title'];
+    final String body = notification['body'];
+    final String mMessage = data['message'];
+
+    MessageModel model =
+        MessageModel(title: title, body: body, message: mMessage);
+
+    appBloc.addMessage(model);
+
+    appBloc.allMessages();
+  }
+
+  Future _delete(int id) async {
+    appBloc.deleteMessages(id);
+    appBloc.allMessages();
+  }
+
   @override
   Widget build(BuildContext context) {
+    var messages;
+    appBloc.messages.map((event) => messages = event);
+
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, condition) {
           return <Widget>[
             SliverTitleAppBar(
-              title: 'Gabriel',
+              title: '${messages.toString()}',
             )
           ];
         },
         body: Container(
           child: Column(
             children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(
+                  top: 20,
+                  left: 15,
+                  right: 15,
+                ),
+                child: _searchNotification(appBloc),
+              ),
               Expanded(
                 child: StreamBuilder(
                   stream: appBloc.messages,
@@ -64,28 +132,51 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _searchNotification(AppBloc appBloc) {
+    return StreamBuilder(
+      stream: appBloc.getSearch,
+      builder: (context, snapshot) {
+        return InputTextField(
+          hintText: 'Título da Notificação',
+          labelText: 'Pesquisa',
+          typeIcon: Icon(Icons.search),
+          typeInput: TextInputType.text,
+          maxLength: 128,
+          color: AppColors.white60,
+          bloc: appBloc.changeSearch,
+          errorText: () => snapshot.error,
+        );
+      },
+    );
+  }
+
   Widget _buildList(AsyncSnapshot<List<MessageModel>> snapshot) {
     return AnimationLimiter(
-      child: GridView.builder(
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
         itemCount: snapshot.data.length,
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.only(top: 5, bottom: 10),
         primary: true,
         addAutomaticKeepAlives: true,
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1),
         itemBuilder: (BuildContext context, int index) {
           return AnimationConfiguration.staggeredGrid(
             position: index,
             duration: const Duration(milliseconds: 375),
             columnCount: 1,
             child: ScaleAnimation(
-              child: GestureDetector(
-                child: CardWidget(
-                  title: snapshot.data[index].title,
-                  body: snapshot.data[index].body,
+              child: Padding(
+                padding: EdgeInsets.all(5),
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(20),
+                  child: CardWidget(
+                    title: snapshot.data[index].title ?? '',
+                    body: snapshot.data[index].body ??
+                        snapshot.data[index].message,
+                  ),
+                  onLongPress: () => _delete(snapshot.data[index].id),
                 ),
-                onTap: () => null,
               ),
             ),
           );
