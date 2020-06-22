@@ -79,10 +79,26 @@ class DBService {
           ? response.map((e) => MessageModel.fromMap(e)).toList()
           : [];
 
-      print('\n SHOW $response \n');
+      //print('\n SHOW $response \n');
       return list.reversed.toList();
     } catch (e) {
       print('\n\nError no show: \n${e.toString()} \n\n');
+      return;
+    }
+  }
+
+  Future details(String id) async {
+    try {
+      final Database _db = await database;
+      var response = await _db.query(
+        this.tableNotification,
+        where: 'id = ?',
+        whereArgs: [id],
+      );
+
+      return response.isNotEmpty ? MessageModel.fromMap(response.first) : null;
+    } catch (e) {
+      print('\n\nError no details: \n${e.toString()} \n\n');
       return;
     }
   }

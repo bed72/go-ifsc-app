@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:go_ifsc/themes/app_colors.dart';
 
 class SliverTitleAppBar extends StatelessWidget {
@@ -15,13 +16,14 @@ class SliverTitleAppBar extends StatelessWidget {
           onPressed: () {},
         ),
       ],
+      stretch: true,
       expandedHeight: 200,
       floating: false,
       pinned: true,
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: true,
         title: Text(
-          'Olá $title',
+          '$title',
           style: TextStyle(
             color: AppColors.white,
             fontSize: 18,
