@@ -1,29 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:go_ifsc/themes/app_colors.dart';
 
 import '../../../../themes/app_colors.dart';
 
 class CardWidget extends StatefulWidget {
+  final String route;
   final String title;
   final String body;
 
   CardWidget({
     Key key,
+    @required this.route,
     @required this.title,
     @required this.body,
   }) : super(key: key);
   @override
   _CardWidgetState createState() => _CardWidgetState(
+        route: route,
         title: title,
         body: body,
       );
 }
 
 class _CardWidgetState extends State<CardWidget> {
+  final String route;
   final String title;
   final String body;
 
   _CardWidgetState({
+    @required this.route,
     @required this.title,
     @required this.body,
   });
@@ -57,13 +63,16 @@ class _CardWidgetState extends State<CardWidget> {
                           color: AppColors.white38,
                         ),
                         Padding(padding: EdgeInsets.all(10)),
-                        Text(
-                          this.title,
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.white,
-                            letterSpacing: 0.3,
+                        Expanded(
+                          child: Text(
+                            this.title,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.white,
+                              letterSpacing: 0.3,
+                            ),
                           ),
                         ),
                       ],
@@ -100,13 +109,14 @@ class _CardWidgetState extends State<CardWidget> {
                         ),
                       ),
                       IconButton(
-                        icon: Icon(
-                          Icons.touch_app,
-                        ),
-                        iconSize: 22,
-                        tooltip: 'Mais Informações!',
-                        onPressed: () {},
-                      )
+                          icon: Icon(
+                            Icons.touch_app,
+                          ),
+                          iconSize: 22,
+                          tooltip: 'Mais Informações!',
+                          onPressed: () {
+                            Modular.to.pushReplacementNamed(this.route);
+                          })
                     ],
                   ),
                 ],

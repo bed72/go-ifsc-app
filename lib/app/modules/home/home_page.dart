@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:go_ifsc/app/app_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:go_ifsc/app/core/models/message_model.dart';
-import 'package:go_ifsc/app/core/widgets/input_text_widget.dart';
+import 'package:go_ifsc/app/core/services/fcm_service.dart';
 import 'package:go_ifsc/app/modules/home/widgets/sliver_app_bar_widget.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:go_ifsc/themes/app_colors.dart';
 
 import 'widgets/card_widget.dart';
 
@@ -19,6 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final FirebaseMessaging _fcm = FirebaseMessaging();
   final appBloc = Modular.get<AppBloc>();
+  FcmService _fcmBackgroundMessageHandler = FcmService();
 
   @override
   void initState() {
@@ -38,6 +38,7 @@ class _HomePageState extends State<HomePage> {
         print('\n\nonMessage: $message\n\n');
         _setMessage(message);
       },
+      onBackgroundMessage: _fcmBackgroundMessageHandler.,
       onLaunch: (Map<String, dynamic> message) async {
         print('\n\nonLaunch: $message\n\n');
         _setMessage(message);
@@ -74,40 +75,22 @@ class _HomePageState extends State<HomePage> {
         MessageModel(title: title, body: body, message: mMessage);
 
     appBloc.addMessage(model);
-
-    appBloc.allMessages();
-  }
-
-  Future _delete(int id) async {
-    appBloc.deleteMessages(id);
-    appBloc.allMessages();
   }
 
   @override
   Widget build(BuildContext context) {
-    var messages;
-    appBloc.messages.map((event) => messages = event);
-
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (context, condition) {
           return <Widget>[
             SliverTitleAppBar(
-              title: '${messages.toString()}',
+              title: 'Home',
             )
           ];
         },
         body: Container(
           child: Column(
             children: <Widget>[
-              Container(
-                margin: EdgeInsets.only(
-                  top: 20,
-                  left: 15,
-                  right: 15,
-                ),
-                child: _searchNotification(appBloc),
-              ),
               Expanded(
                 child: StreamBuilder(
                   stream: appBloc.messages,
@@ -132,24 +115,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _searchNotification(AppBloc appBloc) {
-    return StreamBuilder(
-      stream: appBloc.getSearch,
-      builder: (context, snapshot) {
-        return InputTextField(
-          hintText: 'Título da Notificação',
-          labelText: 'Pesquisa',
-          typeIcon: Icon(Icons.search),
-          typeInput: TextInputType.text,
-          maxLength: 128,
-          color: AppColors.white60,
-          bloc: appBloc.changeSearch,
-          errorText: () => snapshot.error,
-        );
-      },
-    );
-  }
-
   Widget _buildList(AsyncSnapshot<List<MessageModel>> snapshot) {
     return AnimationLimiter(
       child: ListView.builder(
@@ -168,14 +133,11 @@ class _HomePageState extends State<HomePage> {
             child: ScaleAnimation(
               child: Padding(
                 padding: EdgeInsets.all(5),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(20),
-                  child: CardWidget(
-                    title: snapshot.data[index].title ?? '',
-                    body: snapshot.data[index].body ??
-                        snapshot.data[index].message,
-                  ),
-                  onLongPress: () => _delete(snapshot.data[index].id),
+                child: CardWidget(
+                  route: '/home/details/${snapshot.data[index].id}',
+                  title: snapshot.data[index].title,
+                  body:
+                      snapshot.data[index].body ?? snapshot.data[index].message,
                 ),
               ),
             ),
