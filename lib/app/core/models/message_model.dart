@@ -4,20 +4,23 @@ class MessageModel {
   int id;
   String title;
   String body;
-  String message;
+  String onTitle;
+  String onMessage;
 
   MessageModel({
     this.id,
     @required this.title,
     @required this.body,
-    @required this.message,
+    @required this.onTitle,
+    @required this.onMessage,
   });
 
   factory MessageModel.fromMap(Map<String, dynamic> json) => MessageModel(
         id: json['id'],
         title: json['title'],
         body: json['body'],
-        message: json['message'],
+        onTitle: json['onTitle'],
+        onMessage: json['onMessage'],
       );
 
   Map<String, dynamic> toMap() {
@@ -25,7 +28,8 @@ class MessageModel {
       'id': id,
       'title': title,
       'body': body,
-      'message': message,
+      'onTitle': onTitle,
+      'onMessage': onMessage,
     };
   }
 }

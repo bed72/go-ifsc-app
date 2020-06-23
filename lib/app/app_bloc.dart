@@ -12,15 +12,15 @@ class AppBloc extends Disposable with Validators {
   Stream<List<MessageModel>> get messages => _messageControler.stream;
   Stream<MessageModel> get details => _detailsControler.stream;
 
-  void addMessage(MessageModel message) async {
-    //print('\n ADD ${message.toMap()} \n');
-    await DBService.db.create(message);
-    // Attualiza od dados
-    allMessages();
-  }
-
   void allMessages() async {
     _messageControler.sink.add(await DBService.db.show());
+  }
+
+  void addMessage(MessageModel message) async {
+    await DBService.db.create(message);
+    // Attualiza os dados
+    allMessages();
+    print('\n ADD ${message.toMap()} \n');
   }
 
   void deleteMessages(int id) async {
