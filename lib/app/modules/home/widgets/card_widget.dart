@@ -109,14 +109,15 @@ class _CardWidgetState extends State<CardWidget> {
                         ),
                       ),
                       IconButton(
-                          icon: Icon(
-                            Icons.touch_app,
-                          ),
-                          iconSize: 22,
-                          tooltip: 'Mais Informações!',
-                          onPressed: () {
-                            Modular.to.pushReplacementNamed(this.route);
-                          })
+                        icon: Icon(
+                          Icons.touch_app,
+                        ),
+                        iconSize: 22,
+                        tooltip: 'Mais Informações!',
+                        onPressed: () {
+                          Modular.to.pushReplacementNamed(this.route);
+                        },
+                      )
                     ],
                   ),
                 ],

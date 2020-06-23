@@ -13,7 +13,7 @@ class DBService {
   final String dataBase = "go.db";
   final String tableNotification = "notifications";
   final String createTableNotification =
-      "CREATE TABLE notifications(id INTEGER PRIMARY KEY, title TEXT, body TEXT, message TEXT)";
+      "CREATE TABLE notifications(id INTEGER PRIMARY KEY, title TEXT, body TEXT, onTitle TEXT, onMessage TEXT)";
 
   Future<Database> get database async {
     if (_database != null) return _database;
@@ -36,6 +36,7 @@ class DBService {
   }
 
   Future create(MessageModel model) async {
+    print('\n\nCreated: \n${model.body} \n\n');
     try {
       final Database _db = await database;
       await _db.insert(
