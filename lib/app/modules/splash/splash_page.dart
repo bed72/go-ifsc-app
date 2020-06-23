@@ -18,7 +18,7 @@ class _SplashPageState extends State<SplashPage> {
     // Configurações das notificações
     //FcmService.fcm.setTokenNotification();
     // Configuração das rotas dependendo se o token da sessão ja foi setado
-    Future.delayed(Duration(seconds: 5)).then(
+    Future.delayed(Duration(seconds: 3)).then(
       (value) => Modular.to
           .pushReplacementNamed('/home'), //FcmService.fcm.changeRoute(),
     );
