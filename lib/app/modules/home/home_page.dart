@@ -1,4 +1,3 @@
-import '../../core/services/fcm_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_ifsc/app/app_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -20,8 +19,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    //FcmService.fcm.configure();,
-
     appBloc.allMessages();
   }
 
@@ -42,28 +39,26 @@ class _HomePageState extends State<HomePage> {
           ];
         },
         body: Container(
-          child: AppPushs(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: StreamBuilder(
-                    stream: appBloc.messages,
-                    builder:
-                        (context, AsyncSnapshot<List<MessageModel>> snapshot) {
-                      if (snapshot.hasData) {
-                        return _buildList(snapshot);
-                      } else if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      }
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: StreamBuilder(
+                  stream: appBloc.messages,
+                  builder:
+                      (context, AsyncSnapshot<List<MessageModel>> snapshot) {
+                    if (snapshot.hasData) {
+                      return _buildList(snapshot);
+                    } else if (snapshot.hasError) {
+                      return Text(snapshot.error.toString());
+                    }
 
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    },
-                  ),
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

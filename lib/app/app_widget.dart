@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:go_ifsc/app/core/services/fcm_service.dart';
 import 'package:go_ifsc/app/core/widgets/global_snack_widget.dart';
 import 'package:go_ifsc/themes/app_theme.dart';
 
@@ -15,7 +16,9 @@ class AppWidget extends StatelessWidget {
       builder: (context, child) {
         return Scaffold(
           key: GlobalScaffold.instance.getScaffkey,
-          body: child,
+          body: AppPushs(
+            child: child,
+          ),
         );
       },
       initialRoute: Modular.initialRoute,
