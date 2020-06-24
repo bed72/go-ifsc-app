@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:go_ifsc/app/core/services/fcm_service.dart';
+
+import 'package:go_ifsc/app/core/services/shared_local_storage_service.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -15,13 +16,22 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    // Configurações das notificações
-    //FcmService.fcm.setTokenNotification();
     // Configuração das rotas dependendo se o token da sessão ja foi setado
-    Future.delayed(Duration(seconds: 3)).then(
-      (value) => Modular.to
-          .pushReplacementNamed('/home'), //FcmService.fcm.changeRoute(),
+    Future.delayed(Duration(seconds: 2)).then(
+      (value) => _changeRoute(),
     );
+  }
+
+  // verifica rota
+  void _changeRoute() {
+    print('\nCheck Route: OK\n');
+    SharedLocalStorageService.localShared.get('sessionToken').then(
+          (value) => {
+            value == null
+                ? Modular.to.pushReplacementNamed('/login')
+                : Modular.to.pushReplacementNamed('/home'),
+          },
+        );
   }
 
   @override
