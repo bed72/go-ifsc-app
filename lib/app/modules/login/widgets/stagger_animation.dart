@@ -14,7 +14,7 @@ class StaggerAnimation extends StatelessWidget {
     @required this.bloc,
     @required this.snapshot,
   })  : buttonSqueeze = Tween(
-          begin: 290.0,
+          begin: 320.0,
           end: 60.0,
         ).animate(
           CurvedAnimation(
@@ -117,7 +117,6 @@ class StaggerAnimation extends StatelessWidget {
     );
   }
 
-  // Melhorar isso pois a muita responsabilidade na view
   _login(BuildContext context, snapshot, bloc) {
     // snapshot => esta valido ou não os campos
     if (snapshot.hasData == true) {

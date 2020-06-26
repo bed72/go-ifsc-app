@@ -3,7 +3,7 @@ import 'dart:async';
 extension ValidationExtension on String {
   bool isValidPassword() => this.length >= 6;
 
-  bool isValidSearch() => this.length >= 3;
+  bool isValidOuters() => this.length >= 3;
 
   bool isFieldEmpty() => this?.isEmpty ?? true;
 
@@ -34,12 +34,12 @@ class Validators {
     }
   });
 
-  final validateSearch = StreamTransformer<String, String>.fromHandlers(
+  final validateOuters = StreamTransformer<String, String>.fromHandlers(
       handleData: (search, sink) {
-    if (search.isValidSearch() && !search.isFieldEmpty()) {
+    if (search.isValidOuters() && !search.isFieldEmpty()) {
       sink.add(search);
     } else {
-      sink.addError('Texto pequeno!');
+      sink.addError('Opss!');
     }
   });
 }
