@@ -78,6 +78,7 @@ class _LoginPageState extends State<LoginPage>
                           ButtonNavigate(
                             text: 'Não possui cadastro?',
                             textInfo: ' Cadastre-se',
+                            position: 160,
                             route: '/login/signin',
                           ),
                         ],

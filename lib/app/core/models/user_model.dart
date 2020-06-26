@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class UserModel {
   String name;
   String email;
@@ -6,11 +8,11 @@ class UserModel {
   String passwordConfirmation;
 
   UserModel({
-    this.name,
-    this.email,
-    this.tokenCell,
-    this.password,
-    this.passwordConfirmation,
+    @required this.name,
+    @required this.email,
+    @required this.tokenCell,
+    @required this.password,
+    @required this.passwordConfirmation,
   });
 
   Map<String, dynamic> toMap() {

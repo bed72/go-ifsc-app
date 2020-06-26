@@ -122,7 +122,6 @@ class _AppPushsState extends State<AppPushs> {
     var action;
 
     if (Platform.isAndroid) {
-      var nodeNotification = message['notification'];
       var nodeData = message['data'];
       pushTitle = nodeData['title'];
       pushText = nodeData['body'];

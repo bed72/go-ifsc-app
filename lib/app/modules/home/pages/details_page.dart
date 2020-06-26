@@ -83,6 +83,7 @@ class _DetailsPageState extends State<DetailsPage> {
           ButtonNavigate(
             text: 'Voltar a',
             textInfo: ' Home',
+            position: 80,
             route: '/home',
           ),
         ],

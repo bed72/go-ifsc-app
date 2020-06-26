@@ -5,11 +5,13 @@ import 'package:go_ifsc/themes/app_colors.dart';
 class ButtonNavigate extends StatelessWidget {
   final String text;
   final String textInfo;
+  final double position;
   final String route;
 
   ButtonNavigate({
     @required this.text,
     @required this.textInfo,
+    @required this.position,
     @required this.route,
   });
 
@@ -33,7 +35,7 @@ class ButtonNavigate extends StatelessWidget {
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
       padding: EdgeInsets.only(
-        top: 160,
+        top: this.position,
       ),
       onPressed: () {
         Modular.to.pushReplacementNamed(this.route);
