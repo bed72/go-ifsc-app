@@ -6,7 +6,9 @@ import 'package:go_ifsc/app/core/widgets/button_navigate.dart';
 import 'package:go_ifsc/app/modules/signin/widget/button_create_user_widget.dart';
 
 import '../../../themes/app_colors.dart';
+
 import '../../core/widgets/input_text_widget.dart';
+
 import 'signin_bloc.dart';
 
 class SigninPage extends StatefulWidget {
@@ -49,21 +51,21 @@ class _SigninPageState extends State<SigninPage> {
                 children: <Widget>[
                   nameTextFiel(signinBloc),
                   Container(
-                    margin: EdgeInsets.only(top: 20.0),
+                    margin: EdgeInsets.only(top: 15.0),
                   ),
                   emailTextFiel(signinBloc),
                   Container(
-                    margin: EdgeInsets.only(top: 20.0),
+                    margin: EdgeInsets.only(top: 15.0),
                   ),
                   passwordTextField(signinBloc),
                   Container(
-                    margin: EdgeInsets.only(top: 20.0),
+                    margin: EdgeInsets.only(top: 15.0),
                   ),
                   submitButton(signinBloc),
                   ButtonNavigate(
                     text: 'Já possui cadastro?',
                     textInfo: ' Login',
-                    position: 40,
+                    position: 35,
                     route: '/login',
                   ),
                 ],
