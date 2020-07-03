@@ -1,4 +1,3 @@
-import 'package:http/http.dart';
 import 'package:rxdart/streams.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:flutter_modular/flutter_modular.dart';

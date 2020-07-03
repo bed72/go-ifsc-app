@@ -71,14 +71,14 @@ class _LoginPageState extends State<LoginPage>
                         children: <Widget>[
                           emailTextFiel(loginBloc),
                           Container(
-                            margin: EdgeInsets.only(top: 50.0),
+                            margin: EdgeInsets.only(top: 40.0),
                           ),
                           passwordTextField(loginBloc),
                           // Button create user
                           ButtonNavigate(
                             text: 'Não possui cadastro?',
                             textInfo: ' Cadastre-se',
-                            position: 160,
+                            position: 150,
                             route: '/login/signin',
                           ),
                         ],
