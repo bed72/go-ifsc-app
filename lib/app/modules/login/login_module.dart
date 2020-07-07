@@ -1,4 +1,3 @@
-import 'package:go_ifsc/app/modules/signin/signin_module.dart';
 import 'package:http/http.dart';
 import 'repository/login_repository.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -20,11 +19,6 @@ class LoginModule extends ChildModule {
         Router(
           '/home',
           module: HomeModule(),
-          transition: TransitionType.rightToLeftWithFade,
-        ),
-        Router(
-          '/signin',
-          module: SigninModule(),
           transition: TransitionType.rightToLeftWithFade,
         ),
       ];

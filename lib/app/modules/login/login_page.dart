@@ -79,7 +79,7 @@ class _LoginPageState extends State<LoginPage>
                             text: 'Não possui cadastro?',
                             textInfo: ' Cadastre-se',
                             position: 150,
-                            route: '/login/signin',
+                            route: '/signin',
                           ),
                         ],
                       ),
