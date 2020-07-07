@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:go_ifsc/app/modules/login/login_module.dart';
+import 'package:go_ifsc/app/modules/login/login_page.dart';
 
 import '../../../../themes/app_colors.dart';
 import '../../../core/services/connection_viewmodel.dart';
@@ -98,9 +100,8 @@ class _ButtonAccountState extends State<ButtonAccount> {
                       if (value.statusCode == 200 || value.statusCode == 201)
                         {
                           // realizar melhoria na busca de emails já cadastrados
-                          //this.widget.bloc.fetchCreateAccount(),
-
-                          Modular.to.popAndPushNamed('/login'),
+                          //Modular.link.pushReplacementNamed('/'),
+                          Modular.to.pushReplacementNamed('/login'),
                         }
                       else if (value.statusCode >= 400)
                         {

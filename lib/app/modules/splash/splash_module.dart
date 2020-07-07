@@ -2,6 +2,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:go_ifsc/app/modules/home/home_module.dart';
 
 import 'package:go_ifsc/app/modules/login/login_module.dart';
+import 'package:go_ifsc/app/modules/signin/signin_module.dart';
 import 'package:go_ifsc/app/modules/splash/splash_bloc.dart';
 import 'package:go_ifsc/app/modules/splash/splash_page.dart';
 
@@ -22,6 +23,11 @@ class SplashModule extends ChildModule {
         Router(
           '/home',
           module: HomeModule(),
+          transition: TransitionType.rightToLeftWithFade,
+        ),
+        Router(
+          '/signin',
+          module: SigninModule(),
           transition: TransitionType.rightToLeftWithFade,
         ),
       ];
