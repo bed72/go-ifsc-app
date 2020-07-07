@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage>
                         children: <Widget>[
                           emailTextFiel(loginBloc),
                           Container(
-                            margin: EdgeInsets.only(top: 40.0),
+                            margin: EdgeInsets.only(top: 30.0),
                           ),
                           passwordTextField(loginBloc),
                           // Button create user
@@ -86,9 +86,12 @@ class _LoginPageState extends State<LoginPage>
                     )
                   ],
                 ),
-
+                Container(
+                  // padding: EdgeInsets.all(15),
+                  // margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: submitButton(loginBloc),
+                )
                 // button animado Login
-                submitButton(loginBloc),
               ],
             ),
           ],

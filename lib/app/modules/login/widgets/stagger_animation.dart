@@ -14,7 +14,7 @@ class StaggerAnimation extends StatelessWidget {
     @required this.bloc,
     @required this.snapshot,
   })  : buttonSqueeze = Tween(
-          begin: 320.0,
+          begin: 300.0,
           end: 60.0,
         ).animate(
           CurvedAnimation(
@@ -143,11 +143,10 @@ class StaggerAnimation extends StatelessWidget {
                     (value) => {
                       if (value.statusCode == 200 || value.statusCode == 201)
                         {
-                          bloc.fetchLogin(),
+                          //bloc.fetchLogin(),
                           controller.forward(),
                         }
-                      else if (value.statusCode == 400 ||
-                          value.statusCode == 401)
+                      else if (value.statusCode >= 400)
                         {
                           GlobalScaffold.instance.showSnachbar(
                             _snackConnection(
@@ -161,7 +160,8 @@ class StaggerAnimation extends StatelessWidget {
             }
         },
       );
-    } else {
+    } else if (snapshot.hasData == false) {
+      print('\n\n HAS ERROR ${snapshot.hasError} \n\n');
       GlobalScaffold.instance.showSnachbar(
         _snackbar(context, snapshot),
       );

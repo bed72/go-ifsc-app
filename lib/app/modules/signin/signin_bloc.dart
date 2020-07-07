@@ -53,7 +53,9 @@ class SigninBloc extends Disposable with Validators {
       passwordConfirmation: validConfirmPassword,
     );
 
-    return await _repositoryController.doCreate(userModel);
+    Response response = await _repositoryController.doCreate(userModel);
+
+    return response;
   }
 
   //dispose will be called automatically by closing its streams
