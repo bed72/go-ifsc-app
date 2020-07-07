@@ -6,7 +6,7 @@ import '../../../core/services/connection_viewmodel.dart';
 import '../../../core/widgets/global_snack_widget.dart';
 import '../../../core/widgets/snackbar_widget.dart';
 
-class ButtonAccount extends StatelessWidget {
+class ButtonAccount extends StatefulWidget {
   final bloc;
   final snapshot;
 
@@ -16,17 +16,28 @@ class ButtonAccount extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    bool _stateButton = false;
+  _ButtonAccountState createState() => _ButtonAccountState();
+}
 
+class _ButtonAccountState extends State<ButtonAccount> {
+  bool _stateButton = false;
+
+  void stateBool() {
+    setState(() {
+      _stateButton = !_stateButton;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return RaisedButton(
       onPressed: _stateButton == false
           ? () {
-              _stateButton = !_stateButton;
-              print('\n\n SNAPP ${snapshot.hasData}\n\n');
-              _create(context, snapshot, bloc);
+              stateBool();
+
+              _create(context, widget.snapshot, widget.bloc);
             }
-          : () {},
+          : null,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(
           27,
@@ -77,6 +88,7 @@ class ButtonAccount extends StatelessWidget {
                   'Não a conexão!',
                 ),
               ),
+              stateBool(),
             }
           else if (value == true)
             {
@@ -85,7 +97,7 @@ class ButtonAccount extends StatelessWidget {
                     (value) => {
                       if (value.statusCode == 200 || value.statusCode == 201)
                         {
-                          bloc.fetchCreateAccount(),
+                          this.widget.bloc.fetchCreateAccount(),
                           Modular.to.pushReplacementNamed('/login'),
                         }
                       else if (value.statusCode == 400 ||
@@ -97,6 +109,17 @@ class ButtonAccount extends StatelessWidget {
                               'Credenciais inválidas',
                             ),
                           ),
+                          stateBool(),
+                        }
+                      else if (value.statusCode == 409)
+                        {
+                          GlobalScaffold.instance.showSnachbar(
+                            _snackConnection(
+                              context,
+                              'E-mail já cadastrado',
+                            ),
+                          ),
+                          stateBool(),
                         }
                     },
                   ),
@@ -107,6 +130,7 @@ class ButtonAccount extends StatelessWidget {
       GlobalScaffold.instance.showSnachbar(
         _snackbar(context, snapshot),
       );
+      stateBool();
     }
   }
 

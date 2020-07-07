@@ -1,3 +1,4 @@
+import 'package:http/http.dart';
 import 'package:rxdart/streams.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -30,7 +31,7 @@ class SigninBloc extends Disposable with Validators {
   Function(String) get changeEmail => _emailController.sink.add;
   Function(String) get changePassword => _passwordController.sink.add;
 
-  void fetchCreateAccount() async {
+  Future<Response> fetchCreateAccount() async {
     String getToken;
     await SharedLocalStorageService.localShared.get('tokenFirebase').then(
           (value) => {
@@ -52,7 +53,7 @@ class SigninBloc extends Disposable with Validators {
       passwordConfirmation: validConfirmPassword,
     );
 
-    await _repositoryController.doCreate(userModel);
+    return await _repositoryController.doCreate(userModel);
   }
 
   //dispose will be called automatically by closing its streams
