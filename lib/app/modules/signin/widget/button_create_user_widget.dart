@@ -70,13 +70,13 @@ class _ButtonAccountState extends State<ButtonAccount> {
     );
   }
 
-  _create(BuildContext context, snapshot, bloc) {
+  _create(BuildContext context, snapshot, bloc) async {
     // snapshot => esta valido ou não os campos
     if (snapshot.hasData == true) {
       // Instancia da classe Singleton para conexão
       var _checkConnection = ConnectionController.instance.checkConection();
       // Verificando se há conexão com a internet
-      _checkConnection.then(
+      await _checkConnection.then(
         (value) => {
           // Se falso então não a conexão
           if (value == false)
@@ -97,11 +97,12 @@ class _ButtonAccountState extends State<ButtonAccount> {
                     (value) => {
                       if (value.statusCode == 200 || value.statusCode == 201)
                         {
-                          this.widget.bloc.fetchCreateAccount(),
-                          Modular.to.pushReplacementNamed('/login'),
+                          // realizar melhoria na busca de emails já cadastrados
+                          //this.widget.bloc.fetchCreateAccount(),
+
+                          Modular.to.popAndPushNamed('/login'),
                         }
-                      else if (value.statusCode == 400 ||
-                          value.statusCode == 401)
+                      else if (value.statusCode >= 400)
                         {
                           GlobalScaffold.instance.showSnachbar(
                             _snackConnection(
@@ -111,22 +112,12 @@ class _ButtonAccountState extends State<ButtonAccount> {
                           ),
                           stateBool(),
                         }
-                      else if (value.statusCode == 409)
-                        {
-                          GlobalScaffold.instance.showSnachbar(
-                            _snackConnection(
-                              context,
-                              'E-mail já cadastrado',
-                            ),
-                          ),
-                          stateBool(),
-                        }
                     },
                   ),
             }
         },
       );
-    } else {
+    } else if (snapshot.hasData == false) {
       GlobalScaffold.instance.showSnachbar(
         _snackbar(context, snapshot),
       );
