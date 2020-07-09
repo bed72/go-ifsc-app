@@ -47,7 +47,10 @@ class _HomePageState extends State<HomePage> {
                   builder:
                       (context, AsyncSnapshot<List<MessageModel>> snapshot) {
                     if (snapshot.hasData) {
-                      return _buildList(snapshot);
+                      return Container(
+                        padding: EdgeInsets.only(top: 20),
+                        child: _buildList(snapshot),
+                      );
                     } else if (snapshot.hasError) {
                       return Text(snapshot.error.toString());
                     }

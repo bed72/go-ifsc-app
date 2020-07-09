@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:go_ifsc/app/modules/login/login_module.dart';
-import 'package:go_ifsc/app/modules/login/login_page.dart';
 
 import '../../../../themes/app_colors.dart';
 import '../../../core/services/connection_viewmodel.dart';
