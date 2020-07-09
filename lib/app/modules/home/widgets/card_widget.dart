@@ -87,6 +87,7 @@ class _CardWidgetState extends State<CardWidget> {
                     ),
                     child: Text(
                       this.body,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         fontSize: 14,
                         color: AppColors.white,
