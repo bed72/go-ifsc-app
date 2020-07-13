@@ -93,7 +93,7 @@ class StaggerAnimation extends StatelessWidget {
     // o texto ainda cabe
     if (buttonSqueeze.value > 75) {
       return Text(
-        'Sign in',
+        'Entrar',
         style: TextStyle(
           color: AppColors.white,
           fontSize: 20,

@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
         headerSliverBuilder: (context, condition) {
           return <Widget>[
             SliverTitleAppBar(
-              title: 'Home',
+              title: 'Notícias',
             )
           ];
         },

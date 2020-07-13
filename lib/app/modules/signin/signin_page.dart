@@ -43,7 +43,7 @@ class _SigninPageState extends State<SigninPage> {
               height: 27,
             ),
             // AppBar login
-            AppTitleBar(title: 'Signin'),
+            AppTitleBar(title: 'Cadastrar'),
 
             Container(
               margin: EdgeInsets.only(top: 10, bottom: 5, left: 20, right: 20),
@@ -64,7 +64,7 @@ class _SigninPageState extends State<SigninPage> {
                   submitButton(signinBloc),
                   ButtonNavigate(
                     text: 'Já possui cadastro?',
-                    textInfo: ' Login',
+                    textInfo: ' Entrar',
                     position: 35,
                     route: '/login',
                   ),
@@ -126,7 +126,7 @@ class _SigninPageState extends State<SigninPage> {
       builder: (context, snapshot) {
         return InputTextField(
           hintText: '123...',
-          labelText: 'Password',
+          labelText: 'Senha',
           typeIcon: Icon(
             Icons.lock,
             color: AppColors.white38,
