@@ -37,7 +37,7 @@ class _DetailsPageState extends State<DetailsPage> {
             height: 27,
           ),
           // AppBar login
-          AppTitleBar(title: 'Details'),
+          AppTitleBar(title: 'Detalhes'),
           StreamBuilder(
             stream: appBloc.details,
             builder: (context, AsyncSnapshot<MessageModel> snapshot) {
@@ -103,8 +103,8 @@ class _DetailsPageState extends State<DetailsPage> {
             },
           ),
           ButtonNavigate(
-            text: 'Voltar a',
-            textInfo: ' Home',
+            text: 'Voltar as',
+            textInfo: ' Notícias',
             position: 80,
             route: '/home',
           ),

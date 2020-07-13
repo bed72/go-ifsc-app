@@ -49,7 +49,7 @@ class _ButtonAccountState extends State<ButtonAccount> {
               height: 60,
               alignment: Alignment.center,
               child: Text(
-                'Create Account',
+                'Criar Conta',
                 style: TextStyle(
                   color: AppColors.white,
                   fontSize: 20,

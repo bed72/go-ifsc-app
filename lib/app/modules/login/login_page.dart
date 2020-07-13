@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage>
                       height: 27,
                     ),
                     // AppBar login
-                    AppTitleBar(title: 'Login'),
+                    AppTitleBar(title: 'Go IFSC'),
                     // Form
                     Container(
                       margin: EdgeInsets.only(
@@ -127,7 +127,7 @@ class _LoginPageState extends State<LoginPage>
       builder: (context, snapshot) {
         return InputTextField(
           hintText: '123...',
-          labelText: 'Password',
+          labelText: 'Senha',
           typeIcon: Icon(
             Icons.lock,
             color: AppColors.white38,
